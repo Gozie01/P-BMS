@@ -106,7 +106,7 @@ MIT License. See `LICENSE` file for details.
 ## 👥 Authors
 
 * Chigozie – Blockchain Developer
-* Jonathan and Saviour – Co-author
+* Jonathan, Saviour AND   D-S Kim – Co-author
 
 For academic citations, refer to our [paper](link-to-publication).
 
