@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reviewer Prototype Results</title>
+  <style>
+    :root {
+      --bg: #f5efe4;
+      --panel: rgba(255, 252, 247, 0.9);
+      --ink: #1e2430;
+      --muted: #5d6778;
+      --line: rgba(30, 36, 48, 0.12);
+      --accent: #0d8a72;
+      --accent-2: #d96c3f;
+      --accent-3: #2b5fb3;
+      --good: #1f8f52;
+      --warn: #bf5f2f;
+      --hero: linear-gradient(135deg, rgba(13, 138, 114, 0.18), rgba(217, 108, 63, 0.18));
+      --shadow: 0 18px 50px rgba(39, 44, 55, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(217, 108, 63, 0.18), transparent 34%),
+        radial-gradient(circle at top right, rgba(43, 95, 179, 0.16), transparent 30%),
+        linear-gradient(180deg, #f7f1e7 0%, #f4eee3 100%);
+    }
+
+    .wrap {
+      width: min(1140px, calc(100vw - 32px));
+      margin: 32px auto 48px;
+    }
+
+    .hero {
+      background: var(--hero);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      right: -90px;
+      top: -120px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    h1, h2, h3, p {
+      margin: 0;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--line);
+      color: var(--accent-3);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.7rem);
+      line-height: 1.03;
+      max-width: 750px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .metric,
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .metric {
+      padding: 18px 20px;
+    }
+
+    .metric .label {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+
+    .metric .value {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .panel {
+      padding: 22px;
+    }
+
+    .panel h2 {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+    }
+
+    .panel .sub {
+      color: var(--muted);
+      line-height: 1.55;
+      margin-bottom: 18px;
+    }
+
+    .kv {
+      display: grid;
+      gap: 10px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: start;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed var(--line);
+    }
+
+    .row:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .k {
+      color: var(--muted);
+      min-width: 120px;
+    }
+
+    .v {
+      text-align: right;
+      word-break: break-word;
+      max-width: 65%;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: bold;
+      border: 1px solid transparent;
+    }
+
+    .good {
+      background: rgba(31, 143, 82, 0.12);
+      color: var(--good);
+      border-color: rgba(31, 143, 82, 0.22);
+    }
+
+    .warn {
+      background: rgba(191, 95, 47, 0.12);
+      color: var(--warn);
+      border-color: rgba(191, 95, 47, 0.22);
+    }
+
+    .accent {
+      background: rgba(43, 95, 179, 0.12);
+      color: var(--accent-3);
+      border-color: rgba(43, 95, 179, 0.22);
+    }
+
+    .match-banner {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(13, 138, 114, 0.12), rgba(43, 95, 179, 0.1));
+      border: 1px solid var(--line);
+    }
+
+    .bags {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .bag {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.66);
+      border: 1px solid var(--line);
+    }
+
+    code {
+      font-family: "Consolas", "Courier New", monospace;
+      font-size: 0.85rem;
+      background: rgba(30, 36, 48, 0.06);
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    pre {
+      margin: 16px 0 0;
+      padding: 16px;
+      border-radius: 18px;
+      background: #1e2430;
+      color: #eef2f7;
+      overflow: auto;
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 700px) {
+      .hero,
+      .panel,
+      .metric {
+        border-radius: 20px;
+      }
+
+      .row {
+        display: block;
+      }
+
+      .v {
+        max-width: 100%;
+        margin-top: 4px;
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Reviewer 1 Experimental Support</div>
+      <h1>Clinical-extensibility prototype for blockchain blood matching</h1>
+      <p>
+        This visualization summarizes the prototype run that added phenotype-aware matching,
+        donor consent auditability, hemovigilance reporting, and partial support for special-case transfusion governance.
+      </p>
+      <div class="metrics">
+        <div class="metric">
+          <div class="label">Total Donations</div>
+          <div class="value">2</div>
+        </div>
+        <div class="metric">
+          <div class="label">Inventory Before Match</div>
+          <div class="value">2</div>
+        </div>
+        <div class="metric">
+          <div class="label">Inventory After Match</div>
+          <div class="value">1</div>
+        </div>
+        <div class="metric">
+          <div class="label">Hemovigilance Entries</div>
+          <div class="value">1</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <h2>Consent and Counselling</h2>
+        <p class="sub">Pre-donation governance is captured as an auditable on-chain record.</p>
+        <div class="kv">
+          <div class="row"><div class="k">Status</div><div class="v"><span class="pill good">Recorded</span></div></div>
+          <div class="row"><div class="k">Counselling</div><div class="v"><span class="pill accent">Acknowledged</span></div></div>
+          <div class="row"><div class="k">Donor Hash</div><div class="v"><code>0xddd5626343e0b45b3ebcfd258bfb563bd9cc99aedf5333b6b5359cc92eadf814</code></div></div>
+          <div class="row"><div class="k">Consent Version</div><div class="v"><code>0x90fb3b78d6b6b684ddae43aeeb0693ad94055306f03e8f45061bc2d7823dee80</code></div></div>
+          <div class="row"><div class="k">Timestamp</div><div class="v">1778741110</div></div>
+        </div>
+      </article>
+
+      <article class="panel">
+        <h2>Phenotype-Aware Matching</h2>
+        <p class="sub">The revised matcher selected a compatible unit that also satisfied the requested rare phenotype.</p>
+        <div class="kv">
+          <div class="row"><div class="k">Recipient Type</div><div class="v">A+</div></div>
+          <div class="row"><div class="k">Requested Phenotype</div><div class="v"><span class="pill warn">K- Fy(a-)</span></div></div>
+          <div class="row"><div class="k">Preview Outcome</div><div class="v">O- is a match</div></div>
+          <div class="row"><div class="k">Matched Donor Type</div><div class="v">O-</div></div>
+          <div class="row"><div class="k">Matched Phenotype</div><div class="v">K- Fy(a-)</div></div>
+        </div>
+        <div class="match-banner">
+          <strong>Key result:</strong> an <strong>A+</strong> request with phenotype
+          <strong>K- Fy(a-)</strong> matched the donated
+          <strong>O-</strong> unit instead of the available non-matching phenotype unit.
+        </div>
+      </article>
+
+      <article class="panel">
+        <h2>Hemovigilance Trace</h2>
+        <p class="sub">A post-transfusion adverse event was immutably linked to the matched blood unit.</p>
+        <div class="kv">
+          <div class="row"><div class="k">Reaction Count</div><div class="v">1</div></div>
+          <div class="row"><div class="k">Reaction Type</div><div class="v">Febrile non-hemolytic transfusion reaction</div></div>
+          <div class="row"><div class="k">Severity</div><div class="v"><span class="pill warn">High</span></div></div>
+          <div class="row"><div class="k">Clinician Hash</div><div class="v"><code>0xd014a030adb0a802ea4224d84c4d9bceefba6581b386a24b7a9eeb5f1af56175</code></div></div>
+          <div class="row"><div class="k">Notes</div><div class="v">Reaction trace logged for post-transfusion monitoring.</div></div>
+        </div>
+      </article>
+
+      <article class="panel">
+        <h2>Special-Case Governance</h2>
+        <p class="sub">Instead of claiming full crossmatch automation, the prototype logs emergency/manual-review scenarios for traceability.</p>
+        <div class="kv">
+          <div class="row"><div class="k">Entries</div><div class="v">1</div></div>
+          <div class="row"><div class="k">Emergency Override</div><div class="v"><span class="pill warn">true</span></div></div>
+          <div class="row"><div class="k">Scenario</div><div class="v">Emergency release logged for manual transfusion review.</div></div>
+          <div class="row"><div class="k">Reviewer Hash</div><div class="v"><code>0x994ecd89cf544f0bc13d80d6426cb3c2ed7ab0a34cbc388709ce33504fb260bc</code></div></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel" style="margin-top: 24px;">
+      <h2>Donation Snapshot</h2>
+      <p class="sub">Both experimental blood units are shown below, including phenotype metadata and post-match availability.</p>
+      <div class="bags">
+        <div class="bag">
+          <strong>Donation 1</strong>
+          <div class="kv" style="margin-top: 12px;">
+            <div class="row"><div class="k">Blood Type</div><div class="v">A+</div></div>
+            <div class="row"><div class="k">Phenotype</div><div class="v">K+ Jk(a+)</div></div>
+            <div class="row"><div class="k">Available After Match</div><div class="v"><span class="pill good">true</span></div></div>
+            <div class="row"><div class="k">Bag Code</div><div class="v"><code>0x547faacdc252bcc7a10ccb651b56d1cc11f740d7d2cafc5f0c77a7d958bd42c8</code></div></div>
+          </div>
+        </div>
+        <div class="bag">
+          <strong>Donation 2</strong>
+          <div class="kv" style="margin-top: 12px;">
+            <div class="row"><div class="k">Blood Type</div><div class="v">O-</div></div>
+            <div class="row"><div class="k">Phenotype</div><div class="v">K- Fy(a-)</div></div>
+            <div class="row"><div class="k">Available After Match</div><div class="v"><span class="pill warn">false</span></div></div>
+            <div class="row"><div class="k">Bag Code</div><div class="v"><code>0x439318d6fc355abbb1ca953e6c521248c952afebe35ef21c8c6a0fd73b3fde7a</code></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" style="margin-top: 24px;">
+      <h2>Raw JSON</h2>
+      <p class="sub">This block mirrors the saved machine-readable output for manuscript tables or appendix material.</p>
+      <pre>{
+  "contractAddress": "0xFDBFE773d34009C214adfA5d7852608060846D78",
+  "summary": {
+    "totalDonations": 2,
+    "totalSpent": "1"
+  },
+  "consent": {
+    "donorHash": "0xddd5626343e0b45b3ebcfd258bfb563bd9cc99aedf5333b6b5359cc92eadf814",
+    "consentVersionHash": "0x90fb3b78d6b6b684ddae43aeeb0693ad94055306f03e8f45061bc2d7823dee80",
+    "counsellingAcknowledged": true,
+    "consentRecordedAt": "1778741110",
+    "exists": true
+  },
+  "donations": {
+    "firstBag": {
+      "code": "0x547faacdc252bcc7a10ccb651b56d1cc11f740d7d2cafc5f0c77a7d958bd42c8",
+      "bloodType": 0,
+      "bloodTypeLabel": "A+",
+      "donatedAt": "1778741110",
+      "serialNumber": "0",
+      "phenotype": "K+ Jk(a+)",
+      "donor": "0x63F52a29473F515584af892887696D076CFb25D2",
+      "availableAfterMatching": true
+    },
+    "secondBag": {
+      "code": "0x439318d6fc355abbb1ca953e6c521248c952afebe35ef21c8c6a0fd73b3fde7a",
+      "bloodType": 7,
+      "bloodTypeLabel": "O-",
+      "donatedAt": "1778741110",
+      "serialNumber": "0",
+      "phenotype": "K- Fy(a-)",
+      "donor": "0x95A9CdC70EaF6d334904aFDe9489D2c2a2E515CB",
+      "availableAfterMatching": false
+    }
+  },
+  "matching": {
+    "recipientType": 0,
+    "recipientLabel": "A+",
+    "requestedPhenotype": "K- Fy(a-)",
+    "bankTotalBeforeMatch": "2",
+    "bankTotalAfterMatch": "1",
+    "preview": {
+      "matchedCode": "0x439318d6fc355abbb1ca953e6c521248c952afebe35ef21c8c6a0fd73b3fde7a",
+      "message": "O- is a match",
+      "phenotype": "K- Fy(a-)"
+    },
+    "emittedMatch": {
+      "recipientType": 0,
+      "recipientLabel": "A+",
+      "donorType": 7,
+      "donorLabel": "O-",
+      "matchedCode": "0x439318d6fc355abbb1ca953e6c521248c952afebe35ef21c8c6a0fd73b3fde7a",
+      "phenotype": "K- Fy(a-)"
+    }
+  },
+  "hemovigilance": {
+    "reactionCount": "1",
+    "latestReaction": {
+      "clinicianIdHash": "0xd014a030adb0a802ea4224d84c4d9bceefba6581b386a24b7a9eeb5f1af56175",
+      "reactionType": "Febrile non-hemolytic transfusion reaction",
+      "severity": 2,
+      "severityLabel": "High",
+      "reportedAt": "1778741111",
+      "notes": "Reaction trace logged for post-transfusion monitoring."
+    }
+  },
+  "specialCase": {
+    "specialCaseCount": "1",
+    "latestSpecialCase": {
+      "reviewerIdHash": "0x994ecd89cf544f0bc13d80d6426cb3c2ed7ab0a34cbc388709ce33504fb260bc",
+      "scenario": "Emergency release logged for manual transfusion review.",
+      "emergencyOverride": true,
+      "loggedAt": "1778741111"
+    }
+  }
+}</pre>
+    </section>
+  </div>
+</body>
+</html>

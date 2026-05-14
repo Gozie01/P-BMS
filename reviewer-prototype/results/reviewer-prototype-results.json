@@ -1,0 +1,76 @@
+{
+  "contractAddress": "0xFDBFE773d34009C214adfA5d7852608060846D78",
+  "summary": {
+    "totalDonations": 2,
+    "totalSpent": "1"
+  },
+  "consent": {
+    "donorHash": "0xddd5626343e0b45b3ebcfd258bfb563bd9cc99aedf5333b6b5359cc92eadf814",
+    "consentVersionHash": "0x90fb3b78d6b6b684ddae43aeeb0693ad94055306f03e8f45061bc2d7823dee80",
+    "counsellingAcknowledged": true,
+    "consentRecordedAt": "1778741110",
+    "exists": true
+  },
+  "donations": {
+    "firstBag": {
+      "code": "0x547faacdc252bcc7a10ccb651b56d1cc11f740d7d2cafc5f0c77a7d958bd42c8",
+      "bloodType": 0,
+      "bloodTypeLabel": "A+",
+      "donatedAt": "1778741110",
+      "serialNumber": "0",
+      "phenotype": "K+ Jk(a+)",
+      "donor": "0x63F52a29473F515584af892887696D076CFb25D2",
+      "availableAfterMatching": true
+    },
+    "secondBag": {
+      "code": "0x439318d6fc355abbb1ca953e6c521248c952afebe35ef21c8c6a0fd73b3fde7a",
+      "bloodType": 7,
+      "bloodTypeLabel": "O-",
+      "donatedAt": "1778741110",
+      "serialNumber": "0",
+      "phenotype": "K- Fy(a-)",
+      "donor": "0x95A9CdC70EaF6d334904aFDe9489D2c2a2E515CB",
+      "availableAfterMatching": false
+    }
+  },
+  "matching": {
+    "recipientType": 0,
+    "recipientLabel": "A+",
+    "requestedPhenotype": "K- Fy(a-)",
+    "bankTotalBeforeMatch": "2",
+    "bankTotalAfterMatch": "1",
+    "preview": {
+      "matchedCode": "0x439318d6fc355abbb1ca953e6c521248c952afebe35ef21c8c6a0fd73b3fde7a",
+      "message": "O- is a match",
+      "phenotype": "K- Fy(a-)"
+    },
+    "emittedMatch": {
+      "recipientType": 0,
+      "recipientLabel": "A+",
+      "donorType": 7,
+      "donorLabel": "O-",
+      "matchedCode": "0x439318d6fc355abbb1ca953e6c521248c952afebe35ef21c8c6a0fd73b3fde7a",
+      "phenotype": "K- Fy(a-)"
+    }
+  },
+  "hemovigilance": {
+    "reactionCount": "1",
+    "latestReaction": {
+      "clinicianIdHash": "0xd014a030adb0a802ea4224d84c4d9bceefba6581b386a24b7a9eeb5f1af56175",
+      "reactionType": "Febrile non-hemolytic transfusion reaction",
+      "severity": 2,
+      "severityLabel": "High",
+      "reportedAt": "1778741111",
+      "notes": "Reaction trace logged for post-transfusion monitoring."
+    }
+  },
+  "specialCase": {
+    "specialCaseCount": "1",
+    "latestSpecialCase": {
+      "reviewerIdHash": "0x994ecd89cf544f0bc13d80d6426cb3c2ed7ab0a34cbc388709ce33504fb260bc",
+      "scenario": "Emergency release logged for manual transfusion review.",
+      "emergencyOverride": true,
+      "loggedAt": "1778741111"
+    }
+  }
+}
